@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyOwnDrive</string>
+    <string name="DirectoriesTitle">Upload files From Directory</string>
+    <string name="newDir">Add directory</string>
+    <string name="Ftp_properties_title">Ftp Settings</string>
+    <string name="FtpHostName">HostName</string>
+    <string name="FtpUserText">Username</string>
+    <string name="FtpPass">Password</string>
+    <string name="TryConnectButton">Try Connection</string>
+    <string name="startUpload">Start Upload</string>
+    <string name="DeleteDeviceElements">Delete elements from my device</string>
+    <string name="settings">Settings</string>
+    <string name="home">Home</string>
+    <string name="set_Directories">Set Directories</string>
+    <string name="save_ftp">Save Ftp</string>
+    <string name="ftp_name_input">Ftp Name</string>
+    <string name="start_Upload">Start Upload</string>
+</resources>

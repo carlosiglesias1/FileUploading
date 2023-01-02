@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">MyOwnDrive</string>
+    <string name="DirectoriesTitle">Directorios a examinar</string>
+    <string name="newDir">Añadir directorio</string>
+    <string name="Ftp_properties_title">Configurar Ftp</string>
+    <string name="FtpHostName">Dirección host</string>
+    <string name="FtpUserText">Usuario</string>
+    <string name="FtpPass">Contraseña</string>
+    <string name="TryConnectButton">Probar conexión</string>
+    <string name="startUpload">Comenzar envío</string>
+    <string name="DeleteDeviceElements">Borrar elementos del dispositivo</string>
+    <string name="settings">Configuracion</string>
+    <string name="home">Inicio</string>
+    <string name="set_Directories">Establecer Directorios</string>
+    <string name="save_ftp">Guardar Ftp</string>
+    <string name="ftp_name_input">Nombre del Ftp</string>
+    <string name="start_Upload">Iniciar Subida</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="get_files_recursive">Explorar directorios</string>
+    <string name="destiny_path">Directorio de destino: /Fotos/MyPhotos/</string>
+</resources>
