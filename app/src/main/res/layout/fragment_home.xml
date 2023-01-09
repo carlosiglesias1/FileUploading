@@ -4,13 +4,68 @@
     android:layout_height="match_parent"
     tools:context="com.fileuploading.fragments.HomeFragment">
 
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/BreadCrumb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="100sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/FileList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/BreadCrumb" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ImagePreview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="" />
-    <ListView
-        android:id="@+id/FileList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:background="@color/cardview_dark_background"
+        android:alpha="4">
 
+        <Button
+            android:id="@+id/CloseImageViewer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/close" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/nextImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:foreground="@drawable/ic_next"
+            android:foregroundTint="@color/design_default_color_primary"
+            android:src="@drawable/ic_next" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/prevImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:foreground="@drawable/ic_prev"
+            android:foregroundTint="@color/design_default_color_primary"
+            android:src="@drawable/ic_prev" />
+
+        <ImageView
+            android:id="@+id/ImageViewer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/CloseImageViewer" />
+
+    </RelativeLayout>
 </FrameLayout>

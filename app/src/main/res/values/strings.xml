@@ -18,4 +18,6 @@
     <string name="eliminar">Eliminar</string>
     <string name="get_files_recursive">Explorar directorios</string>
     <string name="destiny_path">Directorio de destino: /Fotos/MyPhotos/</string>
+    <string name="fold_up_by_name">Guardar en carpetas según año</string>
+    <string name="close">X</string>
 </resources>

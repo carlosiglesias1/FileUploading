@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import persistence.Database;
+import persistence.DatabaseAccess;
 import persistence.entities.Directory;
 
 /**
@@ -83,10 +84,9 @@ public class SetDirectoriesFragment extends Fragment {
             popupMenu.setOnMenuItemClickListener(menuItem -> {
                 //Borrar de base de datos y recargar la lista
                 Thread deleteFromDatabase = new Thread(() -> {
-                    Database appdb = Room.databaseBuilder(this.getActivity(), Database.class, Database.DATABASE_NAME).build();
+                    Database appdb = DatabaseAccess.getInstance(this.getActivity()).getDatabase();
                     Directory directory = appdb.directoryDao().getDirectoryByName(SetDirectoriesFragment.this.directoryNames.get(i));
                     appdb.directoryDao().deleteDirectory(directory);
-                    appdb.close();
                 });
                 deleteFromDatabase.start();
                 try {
@@ -105,7 +105,7 @@ public class SetDirectoriesFragment extends Fragment {
 
     private void loadDirectories() {
         Thread loadFromDataBase = new Thread(() -> {
-            Database appdb = Room.databaseBuilder(this.getActivity(), Database.class, Database.DATABASE_NAME).build();
+            Database appdb = DatabaseAccess.getInstance(this.getActivity()).getDatabase();
             this.directories = appdb.directoryDao().getAllDirectories();
             appdb.close();
         });
@@ -117,8 +117,8 @@ public class SetDirectoriesFragment extends Fragment {
         }
         if (this.directories != null) {
             this.directoryNames = new ArrayList<>();
-            for (int i = 0; i < this.directories.length; i++) {
-                this.directoryNames.add(this.directories[i].phoneDirectory);
+            for (Directory directory : this.directories) {
+                this.directoryNames.add(directory.phoneDirectory);
             }
             this.adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, this.directoryNames);
             this.directoriesList.setAdapter(adapter);

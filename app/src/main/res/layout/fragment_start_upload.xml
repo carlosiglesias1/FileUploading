@@ -43,11 +43,18 @@
             android:layout_below="@id/DeleteDeviceElements"
             android:text="@string/get_files_recursive" />
 
+        <CheckBox
+            android:id="@+id/FoldUpByDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/GetFilesRecursive"
+            android:text="@string/fold_up_by_name" />
+
         <Button
             android:id="@+id/StartUpload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/GetFilesRecursive"
+            android:layout_below="@id/FoldUpByDate"
             android:text="@string/start_Upload" />
     </RelativeLayout>
 

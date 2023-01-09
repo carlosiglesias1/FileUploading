@@ -13,9 +13,7 @@ import com.fileuploading.fragments.SetDirectoriesFragment;
 import com.fileuploading.fragments.StartUploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.IOException;
 
 import ftpmanagement.FtpSesion;
 import persistence.Database;
@@ -45,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.FragmentViewer, this.homeFragment);
                     break;
                 case R.id.StartUpload:
-                    transaction.replace(R.id.FragmentViewer, startUploadFragment);
+                    transaction.replace(R.id.FragmentViewer, this.startUploadFragment);
                     break;
                 case R.id.Settings:
-                    transaction.replace(R.id.FragmentViewer, ftpConfiguration);
+                    transaction.replace(R.id.FragmentViewer, this.ftpConfiguration);
                     break;
                 case R.id.SetDirectories:
-                    transaction.replace(R.id.FragmentViewer, directoriesFragment);
+                    transaction.replace(R.id.FragmentViewer, this.directoriesFragment);
                     break;
             }
             transaction.commit();
@@ -60,11 +58,6 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog loadingSessionApp = dialogBuilder.setTitle(R.string.app_name).setMessage("Cargando...").create();
         loadingSessionApp.show();
         FtpSesion.getInstance().loadClientData(this, loadingSessionApp);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         Thread loadTask = new Thread(() -> {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             Database mydb = DatabaseAccess.getInstance(this).getDatabase();
@@ -73,10 +66,23 @@ public class MainActivity extends AppCompatActivity {
                 transaction.add(R.id.FragmentViewer, this.ftpConfiguration);
                 transaction.addToBackStack(null);
             }
-            mydb.close();
             transaction.commit();
         });
         loadTask.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DatabaseAccess.getInstance(this).close();
+        try {
+            if (FtpSesion.getInstance().getClienteFtp().isConnected()) {
+                FtpSesion.getInstance().getClienteFtp().logout();
+                FtpSesion.getInstance().getClienteFtp().disconnect();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public HomeFragment getHomeFragment() {
@@ -86,8 +92,9 @@ public class MainActivity extends AppCompatActivity {
     public BottomNavigationView getNavigationView() {
         return navigationView;
     }
+}
 
-    private ArrayList<String> getDirectories(String selectedDirectories) {
+    /*private ArrayList<String> getDirectories(String selectedDirectories) {
         ArrayList<String> directories = new ArrayList<>(Arrays.asList(selectedDirectories.split("\n")));
         for (int i = 0; i < directories.size(); i++) {
             String directoryPath = directories.get(i);
@@ -101,5 +108,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return directories;
-    }
-}
+    }*/

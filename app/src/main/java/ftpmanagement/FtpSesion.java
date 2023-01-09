@@ -6,6 +6,10 @@ import android.os.Looper;
 
 import androidx.appcompat.app.AlertDialog;
 
+import org.apache.commons.net.ftp.FTPClient;
+
+import java.io.IOException;
+
 import persistence.Database;
 import persistence.DatabaseAccess;
 import persistence.entities.ClientData;
@@ -14,7 +18,9 @@ public class FtpSesion {
     private static FtpSesion instance;
     private ClientData clientData;
     private String rutaActualFtp;
+    private FTPClient clienteFtp;
     private Thread loadFtpData;
+
 
     private FtpSesion() {
         this.rutaActualFtp = "/";
@@ -65,7 +71,23 @@ public class FtpSesion {
         this.clientData = clientData;
     }
 
+    public FTPClient getClienteFtp() throws IOException {
+        if (this.clienteFtp == null) {
+            this.clienteFtp = new FTPClient();
+            this.clienteFtp.setConnectTimeout(1200);
+            ClientData clientData = FtpSesion.getInstance().getClientData();
+            this.clienteFtp.connect(clientData.FtpHostName, 21);
+            this.clienteFtp.setKeepAlive(true);
+            this.clienteFtp.login(clientData.FtpUser, clientData.FtpPassword);
+        }
+        return this.clienteFtp;
+    }
+
     public String getRutaActualFtp() {
         return rutaActualFtp;
+    }
+
+    public void setRutaActualFtp(String rutaActualFtp) {
+        this.rutaActualFtp = rutaActualFtp;
     }
 }
