@@ -74,15 +74,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        DatabaseAccess.getInstance(this).close();
-        try {
-            if (FtpSesion.getInstance().getClienteFtp().isConnected()) {
-                FtpSesion.getInstance().getClienteFtp().logout();
-                FtpSesion.getInstance().getClienteFtp().disconnect();
+        new Thread(() -> {
+            DatabaseAccess.getInstance(this).close();
+            try {
+                if (FtpSesion.getInstance().getClienteFtp().isConnected()) {
+                    FtpSesion.getInstance().getClienteFtp().logout();
+                    FtpSesion.getInstance().getClienteFtp().disconnect();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
 
     public HomeFragment getHomeFragment() {
@@ -93,19 +95,3 @@ public class MainActivity extends AppCompatActivity {
         return navigationView;
     }
 }
-
-    /*private ArrayList<String> getDirectories(String selectedDirectories) {
-        ArrayList<String> directories = new ArrayList<>(Arrays.asList(selectedDirectories.split("\n")));
-        for (int i = 0; i < directories.size(); i++) {
-            String directoryPath = directories.get(i);
-            File folder = new File(directoryPath);
-            if (!(folder.exists() && folder.isDirectory())) {
-                File[] files = folder.listFiles();
-                if (files != null && files.length < 1) {
-                    i--;
-                }
-                directories.remove(directoryPath);
-            }
-        }
-        return directories;
-    }*/

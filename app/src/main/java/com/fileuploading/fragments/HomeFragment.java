@@ -81,7 +81,8 @@ public class HomeFragment extends Fragment {
                     this.goBack();
                     this.loadFileList();
                 } else {
-                    Thread openFile = new Thread(() -> {
+
+                    Thread openPreview = new Thread(() -> {
                         try {
                             this.imageIndex = i;
                             TaskGetFile downloadFile = FtpTaskFactory.getTaskGetFile();
@@ -103,7 +104,7 @@ public class HomeFragment extends Fragment {
                             e.printStackTrace();
                         }
                     });
-                    openFile.start();
+                    openPreview.start();
                 }
             }
         });
@@ -178,12 +179,22 @@ public class HomeFragment extends Fragment {
         this.nextImage = this.getActivity().findViewById(R.id.nextImage);
         this.prevImage = this.getActivity().findViewById(R.id.prevImage);
         this.hidePreviewButtons();
-        this.imagePreview.setOnClickListener(view -> HomeFragment.this.showPreviewButtons());
         this.closePreview.setOnClickListener(view -> HomeFragment.this.hideImagePreview());
         this.nextImage.setOnClickListener(view -> HomeFragment.this.fileList.performItemClick(HomeFragment.this.fileList, imageIndex + 1, imageIndex + 1));
-        this.prevImage.setOnClickListener(view -> HomeFragment.this.fileList.performItemClick(HomeFragment.this.fileList, imageIndex + 1, imageIndex + 1));
-        this.imageView.setOnClickListener(view -> HomeFragment.this.showPreviewButtons());
+        this.prevImage.setOnClickListener(view -> HomeFragment.this.fileList.performItemClick(HomeFragment.this.fileList, imageIndex - 1, imageIndex - 1));
+        this.imageView.setOnClickListener(view -> {
+            if (HomeFragment.this.closePreview.getVisibility() == View.VISIBLE)
+                HomeFragment.this.hidePreviewButtons();
+            else
+                HomeFragment.this.showPreviewButtons();
+        });
         this.imageView.setOnTouchListener(new OnSwipeTouchListener(this.getActivity()) {
+            @Override
+            public void onClick() {
+                super.onClick();
+                imageView.performClick();
+            }
+
             @Override
             public void onSwipeLeft() {
                 super.onSwipeLeft();
