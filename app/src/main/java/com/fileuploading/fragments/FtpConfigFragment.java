@@ -15,9 +15,11 @@ import androidx.room.Room;
 import com.example.fileuploading.R;
 import com.fileuploading.MainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 
 import ftpmanagement.FtpSesion;
 import persistence.Database;
+import persistence.DatabaseAccess;
 import persistence.entities.ClientData;
 
 /**
@@ -25,8 +27,9 @@ import persistence.entities.ClientData;
  */
 public class FtpConfigFragment extends Fragment {
 
-    private EditText FtpName;
+    private TextInputEditText FtpName;
     private EditText FtpHost;
+    private EditText ftpPort;
     private EditText FtpUser;
     private EditText FtpPass;
     private ClientData clientData;
@@ -44,17 +47,21 @@ public class FtpConfigFragment extends Fragment {
         this.saveFtp.setOnClickListener(view -> {
             this.clientData.FtpName = this.FtpName.getText().toString();
             this.clientData.FtpHostName = this.FtpHost.getText().toString();
+            if (this.ftpPort.getText().toString().isEmpty()) {
+                this.clientData.FtpPort = 21;
+            } else {
+                this.clientData.FtpPort = Integer.parseInt(this.ftpPort.getText().toString());
+            }
             this.clientData.FtpUser = this.FtpUser.getText().toString();
             this.clientData.FtpPassword = this.FtpPass.getText().toString();
             this.clientData.IsActive = true;
             Thread saveDataTask = new Thread(() -> {
-                Database appdb = Room.databaseBuilder(getActivity().getApplicationContext(), Database.class, Database.DATABASE_NAME).build();
+                Database appdb = DatabaseAccess.getInstance(this.getContext()).getDatabase();
                 if (appdb.ftpDao().getClient(this.clientData.id) != null) {
                     appdb.ftpDao().updateClient(this.clientData);
                 } else {
                     appdb.ftpDao().instertFtp(this.clientData);
                 }
-                appdb.close();
             });
             saveDataTask.start();
             try {
@@ -78,6 +85,7 @@ public class FtpConfigFragment extends Fragment {
         this.FtpUser = this.getActivity().findViewById(R.id.FtpUser);
         this.FtpPass = this.getActivity().findViewById(R.id.FtpPass);
         this.saveFtp = this.getActivity().findViewById(R.id.SaveFtp);
+        this.ftpPort = this.getActivity().findViewById(R.id.FtpPort);
     }
 
     private void loadData() {

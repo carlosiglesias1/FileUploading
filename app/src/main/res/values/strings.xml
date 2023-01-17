@@ -17,7 +17,9 @@
     <string name="start_Upload">Iniciar Subida</string>
     <string name="eliminar">Eliminar</string>
     <string name="get_files_recursive">Explorar directorios</string>
-    <string name="destiny_path">Directorio de destino: /Fotos/MyPhotos/</string>
-    <string name="fold_up_by_name">Guardar en carpetas según año</string>
+    <string name="destiny_path">Directorio de destino</string>
+    <string name="fold_up_by_name">Agrupar en carpetas según año</string>
     <string name="close">X</string>
+    <string name="port_hint">Puerto: 21</string>
+    <string name="destiny_path_example">Ejemplo: /MyFotos/</string>
 </resources>

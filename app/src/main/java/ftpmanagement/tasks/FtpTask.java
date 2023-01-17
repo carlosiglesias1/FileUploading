@@ -10,7 +10,7 @@ public abstract class FtpTask {
 
     protected FTPClient ftpClient;
 
-    public FtpTask() throws IOException {
+    public FtpTask() throws IOException, NullPointerException {
         this.ftpClient = FtpSesion.getInstance().getClienteFtp();
     }
 }

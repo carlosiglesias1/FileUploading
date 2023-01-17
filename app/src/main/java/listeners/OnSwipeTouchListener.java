@@ -1,4 +1,4 @@
-package handlers;
+package listeners;
 
 import android.content.Context;
 import android.view.GestureDetector;
@@ -42,8 +42,13 @@ public class OnSwipeTouchListener implements OnTouchListener {
 
         @Override
         public boolean onDown(MotionEvent e) {
-            onClick();
             return true;
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            onClick();
+            return super.onSingleTapUp(e);
         }
 
         @Override

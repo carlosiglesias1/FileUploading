@@ -19,8 +19,6 @@ public class FtpSesion {
     private ClientData clientData;
     private String rutaActualFtp;
     private FTPClient clienteFtp;
-    private Thread loadFtpData;
-
 
     private FtpSesion() {
         this.rutaActualFtp = "/";
@@ -41,29 +39,15 @@ public class FtpSesion {
      * @param alertDialog
      */
     public void loadClientData(Context applicationContext, AlertDialog alertDialog) {
-        loadFtpData = new Thread(() -> {
-            Database mydb = DatabaseAccess.getInstance(applicationContext).getDatabase();
-            this.clientData = mydb.ftpDao().getActiveFtp();
-            mydb.close();
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(alertDialog::dismiss);
-        });
-        loadFtpData.start();
-        try {
-            loadFtpData.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+        Database mydb = DatabaseAccess.getInstance(applicationContext).getDatabase();
+        this.clientData = mydb.ftpDao().getActiveFtp();
+        mydb.close();
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(alertDialog::dismiss);
 
-    public boolean isSesionLoaded() {
-        return loadFtpData != null && loadFtpData.getState().equals(Thread.State.TERMINATED);
     }
 
     public ClientData getClientData() throws NullPointerException {
-        if (!this.isSesionLoaded()) {
-            throw new NullPointerException("No se ha cargado la sesión");
-        }
         return clientData;
     }
 
@@ -71,14 +55,16 @@ public class FtpSesion {
         this.clientData = clientData;
     }
 
-    public FTPClient getClienteFtp() throws IOException {
-        if (this.clienteFtp == null) {
-            this.clienteFtp = new FTPClient();
-            this.clienteFtp.setConnectTimeout(1200);
+    public FTPClient getClienteFtp() throws IOException, NullPointerException {
+        if (this.clienteFtp == null || !this.clienteFtp.isConnected()) {
             ClientData clientData = FtpSesion.getInstance().getClientData();
-            this.clienteFtp.connect(clientData.FtpHostName, 21);
-            this.clienteFtp.setKeepAlive(true);
-            this.clienteFtp.login(clientData.FtpUser, clientData.FtpPassword);
+            if (this.clientData != null) {
+                this.clienteFtp = new FTPClient();
+                this.clienteFtp.setConnectTimeout(1200);
+                this.clienteFtp.connect(clientData.FtpHostName, clientData.FtpPort);
+                this.clienteFtp.setKeepAlive(true);
+                this.clienteFtp.login(clientData.FtpUser, clientData.FtpPassword);
+            }
         }
         return this.clienteFtp;
     }

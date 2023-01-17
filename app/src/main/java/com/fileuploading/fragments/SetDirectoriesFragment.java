@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.DocumentsContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +21,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
-import androidx.room.Room;
 
 import com.example.fileuploading.R;
 
@@ -53,17 +54,12 @@ public class SetDirectoriesFragment extends Fragment {
                 Directory directory = new Directory();
                 directory.phoneDirectory = docId;
                 Thread insertOnDatabase = new Thread(() -> {
-                    Database database = Room.databaseBuilder(SetDirectoriesFragment.this.getContext(), Database.class, Database.DATABASE_NAME).build();
+                    Database database = DatabaseAccess.getInstance(this.getContext()).getDatabase();
                     database.directoryDao().insertDirectory(directory);
-                    database.close();
+                    Handler appHandler = new Handler(Looper.getMainLooper());
+                    appHandler.post(SetDirectoriesFragment.this::loadDirectories);
                 });
                 insertOnDatabase.start();
-                try {
-                    insertOnDatabase.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                this.loadDirectories();
             } else {
                 Toast.makeText(this.getActivity(), "No se ha podido encontrar el directorio", Toast.LENGTH_SHORT).show();
             }

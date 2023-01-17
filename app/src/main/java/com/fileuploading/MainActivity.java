@@ -57,14 +57,14 @@ public class MainActivity extends AppCompatActivity {
         });
         AlertDialog loadingSessionApp = dialogBuilder.setTitle(R.string.app_name).setMessage("Cargando...").create();
         loadingSessionApp.show();
-        FtpSesion.getInstance().loadClientData(this, loadingSessionApp);
         Thread loadTask = new Thread(() -> {
+            FtpSesion.getInstance().loadClientData(this, loadingSessionApp);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             Database mydb = DatabaseAccess.getInstance(this).getDatabase();
             transaction.add(R.id.FragmentViewer, this.homeFragment);
             if (!mydb.ftpDao().anyFtp()) {
-                transaction.add(R.id.FragmentViewer, this.ftpConfiguration);
-                transaction.addToBackStack(null);
+                transaction.replace(R.id.FragmentViewer, this.ftpConfiguration);
+                this.navigationView.setSelectedItemId(R.id.Settings);
             }
             transaction.commit();
         });

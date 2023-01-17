@@ -1,5 +1,7 @@
 package ftpmanagement.tasks;
 
+import androidx.annotation.NonNull;
+
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
@@ -75,18 +77,17 @@ public class TaskUploadFile extends FtpTask {
                 pathToFolder += remoteFolderSplit[j] + "/";
             }
             remoteFolders[i] = pathToFolder + remoteFolders[i] + "/";
-
         }
-        for (String directory : remoteFolders) {
-            this.ftpClient.listFiles(directory);
-            String reply = this.ftpClient.getReplyString();
-            if (reply.toLowerCase().contains("error") || reply.contains("not found")) {
-                this.ftpClient.makeDirectory(directory);
+        if (!this.ftpClient.changeWorkingDirectory(remoteFolders[remoteFolders.length - 1])) {
+            for (String directory : remoteFolders) {
+                if (!this.ftpClient.changeWorkingDirectory(directory)) {
+                    this.ftpClient.makeDirectory(directory);
+                }
             }
         }
     }
 
-    private String getFilename(File file) {
+    private String getFilename(@NonNull File file) {
         String[] fileNameParts = file.getPath().split("/");
         return fileNameParts[fileNameParts.length - 1];
     }

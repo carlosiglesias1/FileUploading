@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,20 +20,30 @@
                 android:layout_height="wrap_content" />
         </ScrollView>
 
-        <EditText
-            android:id="@+id/DestinyPath"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/DestinyLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ScrollDirectories"
-            android:layout_marginTop="10sp"
-            android:hint="@string/destiny_path"
-            android:inputType="text" />
+            app:helperText="@string/destiny_path_example"
+            app:helperTextEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/DestinyPath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ScrollDirectories"
+                android:layout_marginTop="10sp"
+                android:hint="@string/destiny_path"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <CheckBox
             android:id="@+id/DeleteDeviceElements"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/DestinyPath"
+            android:layout_below="@id/DestinyLayout"
             android:layout_marginTop="10sp"
             android:text="@string/DeleteDeviceElements" />
 

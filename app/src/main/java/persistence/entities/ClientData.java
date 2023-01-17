@@ -12,6 +12,7 @@ public class ClientData {
 
     public String FtpName;
     public String FtpHostName;
+    public int FtpPort;
     public String FtpUser;
     public String FtpPassword;
     public boolean IsActive;
