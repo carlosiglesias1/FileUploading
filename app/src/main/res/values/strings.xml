@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MyOwnDrive</string>
     <string name="DirectoriesTitle">Directorios a examinar</string>
-    <string name="newDir">Añadir directorio</string>
+    <string name="newDir">Añadir carpeta compartida</string>
     <string name="Ftp_properties_title">Configurar Ftp</string>
     <string name="FtpHostName">Dirección host</string>
     <string name="FtpUserText">Usuario</string>
@@ -11,15 +11,20 @@
     <string name="DeleteDeviceElements">Borrar elementos del dispositivo</string>
     <string name="settings">Configuracion</string>
     <string name="home">Inicio</string>
-    <string name="set_Directories">Establecer Directorios</string>
+    <string name="set_Directories">Carpetas Compartidas</string>
     <string name="save_ftp">Guardar Ftp</string>
     <string name="ftp_name_input">Nombre del Ftp</string>
     <string name="start_Upload">Iniciar Subida</string>
     <string name="eliminar">Eliminar</string>
-    <string name="get_files_recursive">Explorar directorios</string>
-    <string name="destiny_path">Directorio de destino</string>
+    <string name="get_files_recursive">Subir elementos en subcarpetas</string>
+    <string name="destiny_path">Carpeta de destino</string>
     <string name="fold_up_by_name">Agrupar en carpetas según año</string>
-    <string name="close">X</string>
-    <string name="port_hint">Puerto: 21</string>
+    <string name="port_hint">Puerto</string>
     <string name="destiny_path_example">Ejemplo: /MyFotos/</string>
+    <string name="ftp_port_helper_text">Por defecto: 21</string>
+    <string name="date_format_help">DD/MM/AAAA</string>
+    <string name="from">Desde</string>
+    <string name="to">Hasta</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

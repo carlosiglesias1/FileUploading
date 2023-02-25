@@ -35,16 +35,14 @@ public class FtpSesion {
      * Carga los datos del cliente Ftp activo, como es una acción realizada en un hilo a parte
      * requiere del Dialog que debe ser cerrado al finalizar la carga.
      *
-     * @param applicationContext
-     * @param alertDialog
+     * @param applicationContext contexto de la aplicacion
+     * @param alertDialog dialogo
      */
     public void loadClientData(Context applicationContext, AlertDialog alertDialog) {
         Database mydb = DatabaseAccess.getInstance(applicationContext).getDatabase();
         this.clientData = mydb.ftpDao().getActiveFtp();
-        mydb.close();
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(alertDialog::dismiss);
-
     }
 
     public ClientData getClientData() throws NullPointerException {

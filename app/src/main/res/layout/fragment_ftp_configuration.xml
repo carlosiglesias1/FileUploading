@@ -12,12 +12,11 @@
 
         <TextView
             android:id="@+id/Ftp_properties_title"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/design_default_color_on_secondary"
             android:text="@string/Ftp_properties_title"
             android:textAlignment="center"
-            android:textColor="@color/design_default_color_on_primary"
             android:textSize="20sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -25,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/Ftp_properties_title"
-            android:layout_marginTop="5sp">
+            android:layout_marginTop="15sp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/FtpName"
@@ -34,54 +33,80 @@
                 android:hint="@string/ftp_name_input" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <EditText
-            android:id="@+id/FtpHost"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FtpHostLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/FtpNameLayout"
-            android:layout_marginTop="5sp"
-            android:layout_marginEnd="115dp"
-            android:autofillHints=""
-            android:hint="@string/FtpHostName"
-            android:inputType="text" />
+            android:layout_marginTop="20sp"
+            app:helperText="Ejemplo: 0.0.0.0">
 
-        <EditText
-            android:id="@+id/FtpPort"
+            <EditText
+                android:id="@+id/FtpHost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="140sp"
+                android:autofillHints=""
+                android:hint="@string/FtpHostName"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FtpPortLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/FtpNameLayout"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="5sp"
-            android:hint="@string/port_hint"
-            android:inputType="number"
-            android:minWidth="100sp" />
+            android:layout_marginTop="20sp"
+            app:helperText="Por defecto: 21"
+            app:helperTextEnabled="true">
 
-        <EditText
-            android:id="@+id/FtpUser"
+            <EditText
+                android:id="@+id/FtpPort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/port_hint"
+                android:inputType="number"
+                android:minWidth="130sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FtpUserLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/FtpHost"
-            android:layout_marginTop="5sp"
-            android:autofillHints=""
-            android:hint="@string/FtpUserText"
-            android:inputType="text" />
+            android:layout_below="@id/FtpHostLayout"
+            android:layout_marginTop="10sp">
 
-        <EditText
-            android:id="@+id/FtpPass"
+            <EditText
+                android:id="@+id/FtpUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/FtpUserText"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FtpPassLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/FtpUser"
-            android:layout_marginTop="5sp"
-            android:autofillHints=""
-            android:hint="@string/FtpPass"
-            android:inputType="textPassword" />
+            android:layout_below="@id/FtpUserLayout"
+            android:layout_marginTop="20sp">
+
+            <EditText
+                android:id="@+id/FtpPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/FtpPass"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/SaveFtp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/FtpPass"
+            android:layout_below="@id/FtpPassLayout"
             android:text="@string/save_ftp" />
     </RelativeLayout>
 

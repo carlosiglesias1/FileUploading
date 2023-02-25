@@ -11,9 +11,15 @@ import com.fileuploading.fragments.FtpConfigFragment;
 import com.fileuploading.fragments.HomeFragment;
 import com.fileuploading.fragments.SetDirectoriesFragment;
 import com.fileuploading.fragments.StartUploadFragment;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import ftpmanagement.FtpSesion;
 import persistence.Database;
@@ -30,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AdView adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         this.ftpConfiguration = new FtpConfigFragment();
         this.homeFragment = new HomeFragment();
@@ -60,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
         Thread loadTask = new Thread(() -> {
             FtpSesion.getInstance().loadClientData(this, loadingSessionApp);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            Database mydb = DatabaseAccess.getInstance(this).getDatabase();
+            Database appDb = DatabaseAccess.getInstance(this).getDatabase();
             transaction.add(R.id.FragmentViewer, this.homeFragment);
-            if (!mydb.ftpDao().anyFtp()) {
+            if (!appDb.ftpDao().anyFtp()) {
                 transaction.replace(R.id.FragmentViewer, this.ftpConfiguration);
                 this.navigationView.setSelectedItemId(R.id.Settings);
             }
@@ -93,5 +102,9 @@ public class MainActivity extends AppCompatActivity {
 
     public BottomNavigationView getNavigationView() {
         return navigationView;
+    }
+
+    public SetDirectoriesFragment getDirectoriesFragment(){
+        return this.directoriesFragment;
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dark_purple">#4e395d</color>
+    <color name="light_purple">#827085</color>
+    <color name="sand">#e8d890</color>
+    <color name="soft_orange">#f2a772</color>
+    <color name="soft_magenta">#d43f5d</color>
+    <color name="bold_blue">#69a5a4</color>
+    <color name="soft_green">#8DEE9B</color>
+    <color name="my_palette_app_color">#005f73</color>
+    <color name="my_palette_button">#83c5be</color>
+</resources>

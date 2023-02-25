@@ -69,19 +69,21 @@ public class TaskUploadFile extends FtpTask {
     }
 
     private void checkDestinationFolders(String remoteFolder) throws IOException {
-        String[] remoteFolderSplit = remoteFolder.split("/");
-        String[] remoteFolders = remoteFolder.split("/");
-        for (int i = 0; i < remoteFolders.length; i++) {
-            String pathToFolder = "";
-            for (int j = 0; j < i; j++) {
-                pathToFolder += remoteFolderSplit[j] + "/";
+        if (!remoteFolder.isEmpty()) {
+            String[] remoteFolderSplit = remoteFolder.split("/");
+            String[] remoteFolders = remoteFolder.split("/");
+            for (int i = 0; i < remoteFolders.length; i++) {
+                String pathToFolder = "";
+                for (int j = 0; j < i; j++) {
+                    pathToFolder += remoteFolderSplit[j] + "/";
+                }
+                remoteFolders[i] = pathToFolder + remoteFolders[i] + "/";
             }
-            remoteFolders[i] = pathToFolder + remoteFolders[i] + "/";
-        }
-        if (!this.ftpClient.changeWorkingDirectory(remoteFolders[remoteFolders.length - 1])) {
-            for (String directory : remoteFolders) {
-                if (!this.ftpClient.changeWorkingDirectory(directory)) {
-                    this.ftpClient.makeDirectory(directory);
+            if (remoteFolders.length > 0 && !this.ftpClient.changeWorkingDirectory(remoteFolders[remoteFolders.length - 1])) {
+                for (String directory : remoteFolders) {
+                    if (!this.ftpClient.changeWorkingDirectory(directory)) {
+                        this.ftpClient.makeDirectory(directory);
+                    }
                 }
             }
         }

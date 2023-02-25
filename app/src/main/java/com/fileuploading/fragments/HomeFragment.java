@@ -23,7 +23,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.fileuploading.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import org.apache.commons.net.ftp.FTPFile;
@@ -54,8 +53,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<FTPFile> files;
     private ImageView imageView;
     private RelativeLayout imagePreview;
-    private FloatingActionButton nextImage;
-    private FloatingActionButton prevImage;
+    private Button nextImage;
+    private Button prevImage;
     private Button goBack;
     private Button closePreview;
     private int imageIndex;

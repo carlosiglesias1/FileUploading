@@ -1,10 +1,17 @@
 package utils;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
 
 public class FileUtils {
     public static String getFileExtension(String filename) {
-        return filename.substring(filename.lastIndexOf("."));
+        String extension = null;
+        int indexOfExtension = filename.lastIndexOf(".");
+        if (!(indexOfExtension < 0))
+            extension = filename.substring(indexOfExtension);
+        return extension;
     }
 
     public static int getFileType(String filename) {
@@ -12,12 +19,16 @@ public class FileUtils {
         String imageExtensions = ".jpg | .jpeg | .png | .webp";
         String pdfExtensions = ".pdf";
         String videoExtensions = ".mp4 | .avi | .wmv | .m4v";
-        if (imageExtensions.contains(getFileExtension(filename)))
-            fileType = FileTypes.IMAGE;
-        if (pdfExtensions.contains(getFileExtension(filename)))
-            fileType = FileTypes.PDF;
-        if (videoExtensions.contains(getFileExtension(filename)))
-            fileType = FileTypes.VIDEO;
+        String fileExtension = getFileExtension(filename);
+        if (fileExtension != null) {
+            fileExtension = fileExtension.toLowerCase();
+            if (imageExtensions.contains(fileExtension))
+                fileType = FileTypes.IMAGE;
+            if (pdfExtensions.contains(fileExtension))
+                fileType = FileTypes.PDF;
+            if (videoExtensions.contains(fileExtension))
+                fileType = FileTypes.VIDEO;
+        }
         return fileType;
     }
 
@@ -31,6 +42,17 @@ public class FileUtils {
             ready = true;
         }
         return ready;
+    }
+
+    public static String getFileDateString(File file) {
+        String fileDate = "";
+        try {
+            BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+            fileDate = fileAttributes.creationTime().toString().split("T")[0];
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileDate;
     }
 
     public interface FileTypes {

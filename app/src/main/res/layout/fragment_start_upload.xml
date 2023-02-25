@@ -38,34 +38,102 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <CheckBox
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/DeleteDeviceElements"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/DestinyLayout"
             android:layout_marginTop="10sp"
+            android:minWidth="285sp"
             android:text="@string/DeleteDeviceElements" />
 
-        <CheckBox
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/GetFilesRecursive"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/DeleteDeviceElements"
+            android:minWidth="285sp"
             android:text="@string/get_files_recursive" />
 
-        <CheckBox
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/FoldUpByDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/GetFilesRecursive"
+            android:minWidth="285sp"
             android:text="@string/fold_up_by_name" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/UploadAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/FoldUpByDate"
+            android:checked="true"
+            android:text="Subir todos los elementos" />
+
+        <LinearLayout
+            android:id="@+id/FileDateFilterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/UploadAll"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/UploadFilesBetweenDateTitle"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subir archivos:" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/UploadFileFromDateLayout"
+                    android:layout_width="180sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20sp"
+                    android:layout_marginEnd="5sp"
+                    android:minWidth="150dp"
+                    app:endIconDrawable="@drawable/calendar"
+                    app:endIconMode="custom"
+                    app:helperText="@string/date_format_help">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/UploadFileFromDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/from"
+                        android:inputType="date" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/UploadFileToDateLayout"
+                    android:layout_width="180sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5sp"
+                    android:minWidth="150sp"
+                    app:endIconDrawable="@drawable/calendar"
+                    app:endIconMode="custom"
+                    app:helperText="@string/date_format_help">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/UploadFileToDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/to"
+                        android:inputType="date" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/StartUpload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/FoldUpByDate"
+            android:layout_below="@id/FileDateFilterLayout"
             android:text="@string/start_Upload" />
     </RelativeLayout>
 

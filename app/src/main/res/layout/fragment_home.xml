@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/BreadCrumb"
             android:backgroundTint="@color/cardview_dark_background"
-            android:foreground="@drawable/ic_prev"
+            android:foreground="@drawable/previous"
             android:foregroundTint="@color/white"
             android:maxWidth="75dp" />
 
@@ -45,39 +45,42 @@
 
         <Button
             android:id="@+id/CloseImageViewer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
             android:layout_alignParentEnd="true"
-            android:backgroundTint="@color/cardview_dark_background"
-            android:text="@string/close"
-            android:textSize="20sp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/nextImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:backgroundTint="@color/cardview_dark_background"
-            android:foreground="@drawable/ic_next"
+            android:backgroundTint="@android:color/transparent"
+            android:foreground="@drawable/close"
             android:foregroundTint="@color/white"
-            app:borderWidth="0dp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/prevImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:backgroundTint="@color/cardview_dark_background"
-            android:foreground="@drawable/ic_prev"
-            android:foregroundTint="@color/white"
-            app:borderWidth="0dp" />
+            android:maxWidth="50sp" />
 
         <ImageView
             android:id="@+id/ImageViewer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/CloseImageViewer" />
+            android:layout_below="@id/CloseImageViewer"
+            android:layout_above="@id/nextImage"/>
+
+        <Button
+            android:id="@+id/nextImage"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@android:color/transparent"
+            android:foreground="@drawable/next"
+            android:foregroundTint="@color/white"
+            app:borderWidth="0dp"
+            app:pressedTranslationZ="0dp" />
+
+        <Button
+            android:id="@+id/prevImage"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@android:color/transparent"
+            android:foreground="@drawable/previous"
+            android:foregroundTint="@color/white"
+            app:borderWidth="0dp" />
 
     </RelativeLayout>
 </FrameLayout>

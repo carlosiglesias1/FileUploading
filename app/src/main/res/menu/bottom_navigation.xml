@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/Home"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/home"
         android:title="@string/home" />
     <item
         android:id="@+id/StartUpload"
-        android:icon="@drawable/ic_upload"
+        android:icon="@drawable/upload_file"
         android:title="@string/start_Upload" />
     <item
         android:id="@+id/Settings"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/settings"
         android:title="@string/settings" />
 
     <item
         android:id="@+id/SetDirectories"
-        android:icon="@drawable/ic_set_directories"
+        android:icon="@drawable/shared_folders"
         android:title="@string/set_Directories" />
 </menu>
